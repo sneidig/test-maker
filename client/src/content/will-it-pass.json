@@ -2,6 +2,12 @@
   "id": "will-it-pass",
   "title": "Will the Test Pass?",
   "blurb": "Read the method and the test, then predict the result. A test fails when the actual value doesn't match what you asserted — or errors out when the code blows up before it even gets there.",
+  "docs": [
+    {
+      "label": "Microsoft Learn — Unit testing C# with xUnit (hands-on)",
+      "url": "https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-csharp-with-xunit"
+    }
+  ],
   "levels": [
     {
       "id": "pass-l1",
@@ -12,18 +18,34 @@
       "prompt": "Does this test pass or fail?",
       "payload": {
         "blocks": [
-          { "label": "Method under test", "code": "int Add(int a, int b) => a + b;" },
-          { "label": "The test", "code": "Assert.Equal(5, Add(2, 3));" }
+          {
+            "label": "Method under test",
+            "code": "int Add(int a, int b) => a + b;"
+          },
+          {
+            "label": "The test",
+            "code": "Assert.Equal(5, Add(2, 3));"
+          }
         ],
         "options": [
-          { "id": "pass", "label": "✅ Passes" },
-          { "id": "fail", "label": "❌ Fails" }
+          {
+            "id": "pass",
+            "label": "✅ Passes"
+          },
+          {
+            "id": "fail",
+            "label": "❌ Fails"
+          }
         ]
       },
-      "solution": { "optionId": "pass" },
+      "solution": {
+        "optionId": "pass"
+      },
       "failStates": [
         {
-          "when": { "optionId": "fail" },
+          "when": {
+            "optionId": "fail"
+          },
           "title": "It passes",
           "explain": "Add(2, 3) returns 5, and the test asserts Equal(5, 5) — that's true, so the test is green."
         }
@@ -38,18 +60,34 @@
       "prompt": "Look closely at the operator. Pass or fail?",
       "payload": {
         "blocks": [
-          { "label": "Method under test", "code": "int Add(int a, int b) => a - b;" },
-          { "label": "The test", "code": "Assert.Equal(5, Add(2, 3));" }
+          {
+            "label": "Method under test",
+            "code": "int Add(int a, int b) => a - b;"
+          },
+          {
+            "label": "The test",
+            "code": "Assert.Equal(5, Add(2, 3));"
+          }
         ],
         "options": [
-          { "id": "pass", "label": "✅ Passes" },
-          { "id": "fail", "label": "❌ Fails" }
+          {
+            "id": "pass",
+            "label": "✅ Passes"
+          },
+          {
+            "id": "fail",
+            "label": "❌ Fails"
+          }
         ]
       },
-      "solution": { "optionId": "fail" },
+      "solution": {
+        "optionId": "fail"
+      },
       "failStates": [
         {
-          "when": { "optionId": "pass" },
+          "when": {
+            "optionId": "pass"
+          },
           "title": "The method has a bug",
           "explain": "Add uses a - b, so Add(2, 3) is -1, not 5. xUnit reports: Assert.Equal() Failure — Expected: 5, Actual: -1. That message is exactly how a real test catches this bug."
         }
@@ -64,24 +102,45 @@
       "prompt": "No user has id 999. What does this test actually do?",
       "payload": {
         "blocks": [
-          { "label": "Method under test", "code": "User FindUser(int id) =>\n    _users.FirstOrDefault(u => u.Id == id);" },
-          { "label": "The test", "code": "var user = FindUser(999);\nAssert.Equal(\"Ada\", user.Name);" }
+          {
+            "label": "Method under test",
+            "code": "User FindUser(int id) =>\n    _users.FirstOrDefault(u => u.Id == id);"
+          },
+          {
+            "label": "The test",
+            "code": "var user = FindUser(999);\nAssert.Equal(\"Ada\", user.Name);"
+          }
         ],
         "options": [
-          { "id": "pass", "label": "✅ Passes" },
-          { "id": "failassert", "label": "❌ Fails — \"Ada\" ≠ the name" },
-          { "id": "nre", "label": "💥 Throws NullReferenceException before the assert" }
+          {
+            "id": "pass",
+            "label": "✅ Passes"
+          },
+          {
+            "id": "failassert",
+            "label": "❌ Fails — \"Ada\" ≠ the name"
+          },
+          {
+            "id": "nre",
+            "label": "💥 Throws NullReferenceException before the assert"
+          }
         ]
       },
-      "solution": { "optionId": "nre" },
+      "solution": {
+        "optionId": "nre"
+      },
       "failStates": [
         {
-          "when": { "optionId": "pass" },
+          "when": {
+            "optionId": "pass"
+          },
           "title": "There's no user 999",
           "explain": "FirstOrDefault returns null when nothing matches, so user is null — there's nothing here that could pass."
         },
         {
-          "when": { "optionId": "failassert" },
+          "when": {
+            "optionId": "failassert"
+          },
           "title": "It never reaches the comparison",
           "explain": "user is null, so user.Name throws NullReferenceException on that line — before Assert.Equal ever runs. The test errors out instead of failing cleanly. The right test asserts the null behavior on purpose: Assert.Null(user)."
         }

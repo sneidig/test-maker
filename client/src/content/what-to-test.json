@@ -2,6 +2,12 @@
   "id": "what-to-test",
   "title": "What Should You Test?",
   "blurb": "Given a method, the real skill is choosing which cases to cover. Sort each candidate into the kind of case it exercises. The legend explains each kind.",
+  "docs": [
+    {
+      "label": "Microsoft Learn — Characteristics of good unit tests",
+      "url": "https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices"
+    }
+  ],
   "glossary": {
     "Happy path": "The normal, valid input the method is built for — the case that should just work.",
     "Edge & boundary": "Tricky-but-valid inputs at the edges: zero, one, the max, empty-but-not-null, truncation, off-by-one territory.",
@@ -18,29 +24,70 @@
       "prompt": "Initials(\"Ada Lovelace\") should return \"AL\". Sort each candidate test by the kind of case it covers.",
       "payload": {
         "categories": [
-          { "id": "happy", "label": "Happy path" },
-          { "id": "edge", "label": "Edge & boundary" },
-          { "id": "nullempty", "label": "Null & empty" }
+          {
+            "id": "happy",
+            "label": "Happy path"
+          },
+          {
+            "id": "edge",
+            "label": "Edge & boundary"
+          },
+          {
+            "id": "nullempty",
+            "label": "Null & empty"
+          }
         ],
         "items": [
-          { "id": "normal", "label": "\"Ada Lovelace\" → \"AL\"", "note": "a typical two-word name" },
-          { "id": "single", "label": "\"Cher\" → \"C\"", "note": "only one word" },
-          { "id": "empty", "label": "\"\" (empty string)", "note": "no characters at all" },
-          { "id": "null", "label": "null", "note": "no string at all" },
-          { "id": "spaces", "label": "\"  Ada   Lovelace  \"", "note": "extra leading/trailing/inner spaces" }
+          {
+            "id": "normal",
+            "label": "\"Ada Lovelace\" → \"AL\"",
+            "note": "a typical two-word name"
+          },
+          {
+            "id": "single",
+            "label": "\"Cher\" → \"C\"",
+            "note": "only one word"
+          },
+          {
+            "id": "empty",
+            "label": "\"\" (empty string)",
+            "note": "no characters at all"
+          },
+          {
+            "id": "null",
+            "label": "null",
+            "note": "no string at all"
+          },
+          {
+            "id": "spaces",
+            "label": "\"  Ada   Lovelace  \"",
+            "note": "extra leading/trailing/inner spaces"
+          }
         ]
       },
       "solution": {
-        "assignments": { "normal": "happy", "single": "edge", "empty": "nullempty", "null": "nullempty", "spaces": "edge" }
+        "assignments": {
+          "normal": "happy",
+          "single": "edge",
+          "empty": "nullempty",
+          "null": "nullempty",
+          "spaces": "edge"
+        }
       },
       "failStates": [
         {
-          "when": { "itemId": "null", "categoryId": "happy" },
+          "when": {
+            "itemId": "null",
+            "categoryId": "happy"
+          },
           "title": "null is never the happy path",
           "explain": "A null name is missing input — it belongs in Null & empty. It's also exactly the case that throws NullReferenceException if the method forgets to guard it, so it's one of the most important tests to write."
         },
         {
-          "when": { "itemId": "single", "categoryId": "happy" },
+          "when": {
+            "itemId": "single",
+            "categoryId": "happy"
+          },
           "title": "A one-word name is an edge case",
           "explain": "The method is built for full names; a single word is valid but unusual — a boundary worth pinning down with its own test."
         }
@@ -55,34 +102,78 @@
       "prompt": "Divide(10, 2) should return 5. Sort each candidate test case.",
       "payload": {
         "categories": [
-          { "id": "happy", "label": "Happy path" },
-          { "id": "edge", "label": "Edge & boundary" },
-          { "id": "throws", "label": "Throws (error)" }
+          {
+            "id": "happy",
+            "label": "Happy path"
+          },
+          {
+            "id": "edge",
+            "label": "Edge & boundary"
+          },
+          {
+            "id": "throws",
+            "label": "Throws (error)"
+          }
         ],
         "items": [
-          { "id": "normal", "label": "Divide(10, 2) → 5", "note": "clean division" },
-          { "id": "trunc", "label": "Divide(7, 2) → 3", "note": "integer division truncates" },
-          { "id": "zeronum", "label": "Divide(0, 5) → 0", "note": "zero numerator" },
-          { "id": "byzero", "label": "Divide(10, 0)", "note": "the divisor is zero" },
-          { "id": "overflow", "label": "Divide(int.MinValue, -1)", "note": "result can't fit in an int" }
+          {
+            "id": "normal",
+            "label": "Divide(10, 2) → 5",
+            "note": "clean division"
+          },
+          {
+            "id": "trunc",
+            "label": "Divide(7, 2) → 3",
+            "note": "integer division truncates"
+          },
+          {
+            "id": "zeronum",
+            "label": "Divide(0, 5) → 0",
+            "note": "zero numerator"
+          },
+          {
+            "id": "byzero",
+            "label": "Divide(10, 0)",
+            "note": "the divisor is zero"
+          },
+          {
+            "id": "overflow",
+            "label": "Divide(int.MinValue, -1)",
+            "note": "result can't fit in an int"
+          }
         ]
       },
       "solution": {
-        "assignments": { "normal": "happy", "trunc": "edge", "zeronum": "edge", "byzero": "throws", "overflow": "throws" }
+        "assignments": {
+          "normal": "happy",
+          "trunc": "edge",
+          "zeronum": "edge",
+          "byzero": "throws",
+          "overflow": "throws"
+        }
       },
       "failStates": [
         {
-          "when": { "itemId": "byzero", "categoryId": "happy" },
+          "when": {
+            "itemId": "byzero",
+            "categoryId": "happy"
+          },
           "title": "Divide by zero throws",
           "explain": "10 / 0 throws DivideByZeroException. That's an error case — test it with Assert.Throws<DivideByZeroException>, not by expecting a return value."
         },
         {
-          "when": { "itemId": "trunc", "categoryId": "happy" },
+          "when": {
+            "itemId": "trunc",
+            "categoryId": "happy"
+          },
           "title": "Truncation is a boundary",
           "explain": "7 / 2 is 3, not 3.5 — integer division truncates toward zero. That surprising-but-correct behavior deserves its own edge-case test."
         },
         {
-          "when": { "itemId": "overflow", "categoryId": "edge" },
+          "when": {
+            "itemId": "overflow",
+            "categoryId": "edge"
+          },
           "title": "This one actually throws",
           "explain": "int.MinValue / -1 can't fit in an int and throws OverflowException — in C# this specific division always overflows. It's an error case, not just a large boundary value."
         }

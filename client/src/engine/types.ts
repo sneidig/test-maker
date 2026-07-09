@@ -184,10 +184,17 @@ export interface SpotBugLevel extends BaseLevel {
 // ── union ────────────────────────────────────────────────────────────────--
 export type Level = OrderingLevel | MatchingLevel | ClassifyLevel | PredictLevel | SpotBugLevel
 
+export interface DocLink {
+  label: string
+  url: string
+}
+
 export interface Zone {
   id: string
   title: string
   blurb: string
+  /** optional "deeper reading" links for the zone (e.g. Microsoft Learn) */
+  docs?: DocLink[]
   /** pack-level explanations shared across the zone's levels, keyed by item name */
   glossary?: Record<string, string>
   levels: Level[]

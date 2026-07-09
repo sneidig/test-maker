@@ -2,6 +2,12 @@
   "id": "assertions",
   "title": "Assertions — pick the right check",
   "blurb": "The assert is the heart of the test: it's the line that decides pass or fail. Match each xUnit assertion to what it actually verifies.",
+  "docs": [
+    {
+      "label": "xUnit.net — Getting started (the Assert API)",
+      "url": "https://xunit.net/docs/getting-started/v3/getting-started"
+    }
+  ],
   "levels": [
     {
       "id": "assert-l1",
@@ -14,27 +20,65 @@
         "leftTitle": "xUnit assertion",
         "rightTitle": "What it verifies",
         "left": [
-          { "id": "equal", "label": "Assert.Equal(expected, actual)", "note": "the one you'll reach for most" },
-          { "id": "true", "label": "Assert.True(condition)" },
-          { "id": "null", "label": "Assert.Null(obj)" },
-          { "id": "throws", "label": "Assert.Throws<T>(() => ...)" }
+          {
+            "id": "equal",
+            "label": "Assert.Equal(expected, actual)",
+            "note": "the one you'll reach for most"
+          },
+          {
+            "id": "true",
+            "label": "Assert.True(condition)"
+          },
+          {
+            "id": "null",
+            "label": "Assert.Null(obj)"
+          },
+          {
+            "id": "throws",
+            "label": "Assert.Throws<T>(() => ...)"
+          }
         ],
         "right": [
-          { "id": "eq", "label": "the two values are equal" },
-          { "id": "bool", "label": "a boolean condition is true" },
-          { "id": "isnull", "label": "a reference is null" },
-          { "id": "ex", "label": "the code throws exception T" }
+          {
+            "id": "eq",
+            "label": "the two values are equal"
+          },
+          {
+            "id": "bool",
+            "label": "a boolean condition is true"
+          },
+          {
+            "id": "isnull",
+            "label": "a reference is null"
+          },
+          {
+            "id": "ex",
+            "label": "the code throws exception T"
+          }
         ]
       },
-      "solution": { "pairs": { "equal": "eq", "true": "bool", "null": "isnull", "throws": "ex" } },
+      "solution": {
+        "pairs": {
+          "equal": "eq",
+          "true": "bool",
+          "null": "isnull",
+          "throws": "ex"
+        }
+      },
       "failStates": [
         {
-          "when": { "leftId": "true", "rightId": "eq" },
+          "when": {
+            "leftId": "true",
+            "rightId": "eq"
+          },
           "title": "Assert.True isn't Assert.Equal",
           "explain": "Assert.True only checks a bool. To compare two values use Assert.Equal(expected, actual) — on failure it reports 'Expected 5, Actual 3', where Assert.True(x == y) would only say 'expected True, got False'."
         },
         {
-          "when": { "leftId": "throws", "rightId": "bool" },
+          "when": {
+            "leftId": "throws",
+            "rightId": "bool"
+          },
           "title": "Throws is for exceptions",
           "explain": "Assert.Throws<T> runs the code and passes only if it throws T. It's how you test error paths — not a boolean check."
         }
@@ -51,27 +95,66 @@
         "leftTitle": "xUnit assertion",
         "rightTitle": "What it verifies",
         "left": [
-          { "id": "same", "label": "Assert.Same(a, b)", "note": "reference identity" },
-          { "id": "equal", "label": "Assert.Equal(a, b)", "note": "value equality" },
-          { "id": "contains", "label": "Assert.Contains(x, list)" },
-          { "id": "empty", "label": "Assert.Empty(list)" }
+          {
+            "id": "same",
+            "label": "Assert.Same(a, b)",
+            "note": "reference identity"
+          },
+          {
+            "id": "equal",
+            "label": "Assert.Equal(a, b)",
+            "note": "value equality"
+          },
+          {
+            "id": "contains",
+            "label": "Assert.Contains(x, list)"
+          },
+          {
+            "id": "empty",
+            "label": "Assert.Empty(list)"
+          }
         ],
         "right": [
-          { "id": "ref", "label": "a and b are the SAME object" },
-          { "id": "val", "label": "a and b have equal values" },
-          { "id": "has", "label": "the collection contains x" },
-          { "id": "none", "label": "the collection has no items" }
+          {
+            "id": "ref",
+            "label": "a and b are the SAME object"
+          },
+          {
+            "id": "val",
+            "label": "a and b have equal values"
+          },
+          {
+            "id": "has",
+            "label": "the collection contains x"
+          },
+          {
+            "id": "none",
+            "label": "the collection has no items"
+          }
         ]
       },
-      "solution": { "pairs": { "same": "ref", "equal": "val", "contains": "has", "empty": "none" } },
+      "solution": {
+        "pairs": {
+          "same": "ref",
+          "equal": "val",
+          "contains": "has",
+          "empty": "none"
+        }
+      },
       "failStates": [
         {
-          "when": { "leftId": "same", "rightId": "val" },
+          "when": {
+            "leftId": "same",
+            "rightId": "val"
+          },
           "title": "Same ≠ Equal",
           "explain": "Assert.Same checks reference identity — is it literally the same object in memory? Assert.Equal checks value equality. Two different lists with identical contents are Equal but not Same."
         },
         {
-          "when": { "leftId": "equal", "rightId": "ref" },
+          "when": {
+            "leftId": "equal",
+            "rightId": "ref"
+          },
           "title": "Equal ≠ Same",
           "explain": "Assert.Equal compares values (via Equals). For 'is it the exact same instance?', that's Assert.Same."
         }

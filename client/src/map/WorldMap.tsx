@@ -45,6 +45,21 @@ export function WorldMap({ progress, onPick, onReset }: WorldMapProps) {
               <div className="zone__head">
                 <h2>{zone.title}</h2>
                 <p className="zone__blurb">{zone.blurb}</p>
+                {zone.docs && zone.docs.length > 0 && (
+                  <p className="zone__docs">
+                    {zone.docs.map((d) => (
+                      <a
+                        key={d.url}
+                        className="zone__doclink"
+                        href={d.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {d.label} ↗
+                      </a>
+                    ))}
+                  </p>
+                )}
               </div>
               <ol className="zone__levels">
                 {zone.levels.map((level, i) => {

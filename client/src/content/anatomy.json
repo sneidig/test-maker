@@ -2,6 +2,12 @@
   "id": "anatomy",
   "title": "Anatomy of a Test",
   "blurb": "Every good unit test has the same shape: Arrange, Act, Assert. Put the steps in the order they run — hover the ⓘ if a term is fuzzy.",
+  "docs": [
+    {
+      "label": "Microsoft Learn — Unit testing best practices (Arrange-Act-Assert)",
+      "url": "https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices"
+    }
+  ],
   "glossary": {
     "Arrange": "Set up the world: create the object under test (the SUT), build the inputs, and configure any mocks. Nothing is verified yet.",
     "Act": "Call the one method you're testing — the single action this test is about.",
@@ -17,16 +23,36 @@
       "primitive": "ordering",
       "title": "L1 · Arrange, Act, Assert",
       "prompt": "Put the three phases of a unit test in the order they run.",
-      "payload": { "tiles": ["Assert", "Arrange", "Act"] },
-      "solution": { "order": ["Arrange", "Act", "Assert"] },
+      "payload": {
+        "tiles": [
+          "Assert",
+          "Arrange",
+          "Act"
+        ]
+      },
+      "solution": {
+        "order": [
+          "Arrange",
+          "Act",
+          "Assert"
+        ]
+      },
       "failStates": [
         {
-          "rule": { "type": "before", "a": "Assert", "b": "Act" },
+          "rule": {
+            "type": "before",
+            "a": "Assert",
+            "b": "Act"
+          },
           "title": "Nothing to assert yet",
           "explain": "You checked the result before calling the method — there's no result to check. Act (call the method) has to run before Assert."
         },
         {
-          "rule": { "type": "before", "a": "Act", "b": "Arrange" },
+          "rule": {
+            "type": "before",
+            "a": "Act",
+            "b": "Arrange"
+          },
           "title": "Acted before arranging",
           "explain": "You called the method before building its inputs and the object under test. Arrange sets the stage first."
         }
@@ -40,19 +66,37 @@
       "title": "L2 · Add cleanup",
       "prompt": "A test that allocates resources releases them last. Order all four steps.",
       "payload": {
-        "tiles": ["Assert", "Dispose / clean up", "Set up (create SUT + data)", "Act"]
+        "tiles": [
+          "Assert",
+          "Dispose / clean up",
+          "Set up (create SUT + data)",
+          "Act"
+        ]
       },
       "solution": {
-        "order": ["Set up (create SUT + data)", "Act", "Assert", "Dispose / clean up"]
+        "order": [
+          "Set up (create SUT + data)",
+          "Act",
+          "Assert",
+          "Dispose / clean up"
+        ]
       },
       "failStates": [
         {
-          "rule": { "type": "before", "a": "Dispose / clean up", "b": "Assert" },
+          "rule": {
+            "type": "before",
+            "a": "Dispose / clean up",
+            "b": "Assert"
+          },
           "title": "Cleaned up too early",
           "explain": "Disposing before you assert can tear down the very state you need to check — the assertion may read a closed connection or a disposed object."
         },
         {
-          "rule": { "type": "before", "a": "Act", "b": "Set up (create SUT + data)" },
+          "rule": {
+            "type": "before",
+            "a": "Act",
+            "b": "Set up (create SUT + data)"
+          },
           "title": "Acted before setup",
           "explain": "You called the method before creating the system under test and its data. Setup (Arrange) comes first."
         }
