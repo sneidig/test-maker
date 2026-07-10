@@ -165,18 +165,18 @@ function evaluateClassify(level: ClassifyLevel, answer: Record<string, string>):
 
   const hints: Hint[] = [
     {
-      title: wrong ? 'Not quite — check your buckets' : 'Something’s still unsorted',
+      title: wrong ? 'Not quite — recheck your categories' : 'Something’s still unsorted',
       body: wrong
-        ? 'At least one service has the wrong lifetime. The legend up top says what each lifetime is for.'
-        : `${itemLabel(focus)} still needs a lifetime. Assign all of them, then check.`,
+        ? 'At least one item is in the wrong category. The legend up top explains what each category means.'
+        : `${itemLabel(focus)} still needs a category. Sort all of them, then check.`,
     },
     why ?? {
       title: `Reconsider ${itemLabel(focus)}`,
-      body: `Think about ${itemLabel(focus)}: does it hold shared state for the whole app, live per request, or is it cheap and stateless? That decides the lifetime.`,
+      body: `Re-read the category descriptions in the legend, then look at ${itemLabel(focus)} again — which one truly fits?`,
     },
     {
       title: 'The exact fix',
-      body: `${itemLabel(focus)} should be ${catLabel(sol[focus])}.`,
+      body: `${itemLabel(focus)} belongs in ${catLabel(sol[focus])}.`,
     },
   ]
 
@@ -203,7 +203,7 @@ function evaluatePredict(level: PredictLevel, answer: string | null): Result {
       : {
           title: answer ? `Reconsider "${optLabel(answer)}"` : 'Pick an outcome first',
           body: answer
-            ? 'Walk through what actually happens to the request in this case.'
+            ? 'Walk through what actually happens in this case, step by step.'
             : 'Choose one of the options, then check.',
         },
     {

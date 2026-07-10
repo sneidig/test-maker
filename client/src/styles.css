@@ -199,6 +199,7 @@ code, .tile__label { font-family: ui-monospace, "Cascadia Code", "Fira Code", mo
   margin: 0 0 22px;
 }
 .player__actions { margin-top: 24px; }
+.player__restart { margin-left: 12px; white-space: nowrap; }
 
 /* ── ordering ──────────────────────────────────────────── */
 .ordering { display: flex; gap: 14px; }
@@ -382,11 +383,10 @@ code, .tile__label { font-family: ui-monospace, "Cascadia Code", "Fira Code", mo
 .card--right { justify-content: space-between; }
 .card__code {
   flex: 1;
-  text-align: center;
   font-family: ui-monospace, "Cascadia Code", monospace;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 /* shared connection marker — same number on a helper and its paired code */

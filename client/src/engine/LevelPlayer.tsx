@@ -34,6 +34,8 @@ export function LevelPlayer({
   const [result, setResult] = useState<Result | null>(null)
   // how many hint tiers are currently revealed (progressive disclosure)
   const [revealed, setRevealed] = useState(1)
+  // bump to force the puzzle to re-seed on "restart" without changing levels
+  const [attempt, setAttempt] = useState(0)
 
   const solved = result?.correct === true
   const hints = result?.hints ?? []
@@ -51,6 +53,15 @@ export function LevelPlayer({
     setRevealed(1)
   }
 
+  // full reset of the current level: clear the answer + result and re-seed the
+  // puzzle, so the player can replay it and re-read the hints.
+  function restart() {
+    setResult(null)
+    setRevealed(1)
+    setAnswer(null)
+    setAttempt((a) => a + 1)
+  }
+
   return (
     <section className="player">
       <header className="player__head">
@@ -60,6 +71,13 @@ export function LevelPlayer({
           <h2>{level.title}</h2>
         </div>
         {alreadyComplete && <span className="badge badge--done">cleared</span>}
+        <button
+          className="link player__restart"
+          onClick={restart}
+          title="Reset this level to replay it and re-read the hints"
+        >
+          ↺ Restart
+        </button>
       </header>
 
       <p className="player__prompt">{level.prompt}</p>
@@ -69,7 +87,7 @@ export function LevelPlayer({
           <Ordering
             tiles={level.payload.tiles}
             hints={level.glossary}
-            resetKey={level.id}
+            resetKey={`${level.id}:${attempt}`}
             locked={solved}
             onChange={setAnswer}
           />
@@ -80,7 +98,7 @@ export function LevelPlayer({
             right={level.payload.right}
             leftTitle={level.payload.leftTitle}
             rightTitle={level.payload.rightTitle}
-            resetKey={level.id}
+            resetKey={`${level.id}:${attempt}`}
             locked={solved}
             onChange={setAnswer}
           />
@@ -90,7 +108,7 @@ export function LevelPlayer({
             items={level.payload.items}
             categories={level.payload.categories}
             glossary={level.glossary}
-            resetKey={level.id}
+            resetKey={`${level.id}:${attempt}`}
             locked={solved}
             onChange={setAnswer}
           />
@@ -99,7 +117,7 @@ export function LevelPlayer({
           <Predict
             blocks={level.payload.blocks}
             options={level.payload.options}
-            resetKey={level.id}
+            resetKey={`${level.id}:${attempt}`}
             locked={solved}
             onChange={setAnswer}
           />
@@ -110,7 +128,7 @@ export function LevelPlayer({
             nodes={level.payload.nodes}
             fixPrompt={level.payload.fixPrompt}
             fixes={level.payload.fixes}
-            resetKey={level.id}
+            resetKey={`${level.id}:${attempt}`}
             locked={solved}
             onChange={setAnswer}
           />
